@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -41,7 +42,7 @@ public class RobotContainer {
           modifyInput(controls.getStrafe()),
           modifyInput(controls.getYaw())), robotDrive ));
     
-    hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.1), hang));
+    hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
   }
 
   /**
@@ -61,9 +62,10 @@ public class RobotContainer {
     controls.slowDriveMode.whenHeld(new StartEndCommand(() -> speedMod = 0.15, () -> speedMod = 0.4));
 
     // toggleWhenPressed to change Pneumatic State
-    controls.elevatorState.toggleWhenPressed(new StartEndCommand(
-      () -> hang.elevatorState(Value.kForward),
-      () -> hang.elevatorState(Value.kReverse) ));
+    /*controls.elevatorState.toggleWhenPressed(new StartEndCommand(
+      () -> hang.elevatorState(DoubleSolenoid.Value.kForward),
+      () -> hang.elevatorState(DoubleSolenoid.Value.kForward) ));*/
+    controls.elevatorState.whileHeld(new RunCommand( () -> hang.setElevatorState(Value.kForward)));
   }
   
   /**

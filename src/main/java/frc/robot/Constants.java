@@ -92,6 +92,6 @@ public final class Constants {
     public static final double visionLowerPosition = 0.2;
   }
 
-  public static final int LEFT_CLIMB_MOTOR = 2;
-  public static final int RIGHT_CLIMB_MOTOR = 3;
+  public static final int LEFT_CLIMB_MOTOR = 3;
+  public static final int RIGHT_CLIMB_MOTOR = 20;
 }

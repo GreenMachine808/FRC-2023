@@ -33,12 +33,12 @@ public class HangSubsystem extends SubsystemBase {
     
   }
 
-  public void elevatorState(Value state) { elevator.set(state); }
+  public void setElevatorState(Value state) { elevator.set(state); }
 
   public void moveElevator(double movement) {
     // Limit Switches?
     
-    climb_l.set(movement);
+    climb_l.set(-movement);
     climb_r.set(movement);
   }
 
