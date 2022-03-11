@@ -40,11 +40,11 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    robotDrive.setDefaultCommand(
+    /*robotDrive.setDefaultCommand(
       new RunCommand(() -> robotDrive.drive(
           modifyInput(controls.getForward()),
           modifyInput(controls.getStrafe()),
-          modifyInput(controls.getYaw())), robotDrive ));
+          modifyInput(controls.getYaw())), robotDrive ));*/
     
     hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
   }

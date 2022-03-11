@@ -71,10 +71,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public void setIntakeArm(DoubleSolenoid.Value value) { intake_p.set(value); }
   
   // method for running conveyor belt
-  public void runConveyorBelt(boolean isBackwards) { conveyor_m.set(1); }//conveyor_m.set(isBackwards==true? -1 : 1); }
+  public void runConveyorBelt(boolean isBackwards) { conveyor_m.set(isBackwards==true? 1 : -1); }
   
   // method for running intake motor
-  public void runIntakeMotor(boolean isBackwards) { intake_m.set(ControlMode.PercentOutput, isBackwards==true? -0.35 : 0.35); }
+  public void runIntakeMotor(boolean isBackwards) { intake_m.set(ControlMode.PercentOutput, isBackwards==true? -1 : 1); }
   
   // method for running shooter motor
   public void runShooter(int setPosition) {
