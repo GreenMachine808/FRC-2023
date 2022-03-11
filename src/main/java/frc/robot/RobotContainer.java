@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.runIntake;
+import frc.robot.commands.runIntakeReverse;
 import frc.robot.commands.runShooter;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -29,6 +30,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem robotDrive = new SwerveSubsystem();
   private final HangSubsystem hang = new HangSubsystem();
+  private final ShooterSubsystem shooter = new ShooterSubsystem();
 
   private final DriveControls controls = new DriveControls();
   private double speedMod = 1.0;
@@ -63,15 +65,11 @@ public class RobotContainer {
       () -> speedMod = 0.4 ));
     controls.slowDriveMode.whenHeld(new StartEndCommand(() -> speedMod = 0.15, () -> speedMod = 0.4));
 
-    // toggleWhenPressed to change Pneumatic State
-    /*controls.elevatorState.toggleWhenPressed(new StartEndCommand(
-      () -> hang.setElevatorState(DoubleSolenoid.Value.kForward),
-      () -> hang.setElevatorState(DoubleSolenoid.Value.kForward) ));*/
     controls.elevatorState.whenPressed(new RunCommand( () -> hang.toggleElevator() ));
     controls.dropElevator0_0.whenPressed(new InstantCommand( () -> hang.popWeightServo(true) ));
-    controls.shooter.whileHeld(new runShooter( new ShooterSubsystem() ));
-    controls.runIntakeForward.whileHeld(new runIntake( new ShooterSubsystem() ));
-    controls.runIntakeReverse.whileHeld(new runIntake( new ShooterSubsystem() ));
+    controls.shooter.whileHeld((new runShooter( shooter ) ));
+    controls.runIntakeForward.whileHeld(new runIntake( shooter ));
+    controls.runIntakeReverse.whileHeld(new runIntakeReverse( shooter ));
   }
   
   /**

@@ -23,7 +23,7 @@ public class ShooterSubsystem extends SubsystemBase {
   // Create variables specific to the subsystem, as well as the devices (new Motor m_motor)
   private final CANSparkMax conveyor_m, shooter1_m, shooter2_m;
   private final RelativeEncoder shooter_e;
-  private final SparkMaxPIDController shooter_mc, conveyor_mc;
+  private final SparkMaxPIDController shooter_mc;//, conveyor_mc;
   private final TalonSRX intake_m;
   private final DoubleSolenoid intake_p;
   
@@ -32,7 +32,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // Set value to variables and other initialization here
     conveyor_m = new CANSparkMax(CONVEYOR_MOTOR, MotorType.kBrushless);
-    conveyor_mc = conveyor_m.getPIDController();
+    //conveyor_mc = conveyor_m.getPIDController();
     conveyor_m.restoreFactoryDefaults();
 
     shooter1_m = new CANSparkMax(SHOOTER_1_MOTOR, MotorType.kBrushless);
@@ -49,36 +49,37 @@ public class ShooterSubsystem extends SubsystemBase {
       INTAKEREVERSECHANNEL);
 
     // PID Constants. CURRENTLY YOINKED FROM 2020 CODE
-    shooter_mc.setP(shooterkP);
+    /*shooter_mc.setP(shooterkP);
     shooter_mc.setI(shooterkI);
     shooter_mc.setD(shooterkD);
     shooter_mc.setIZone(shooterkIz);
     shooter_mc.setFF(shooterkFF);
-    shooter_mc.setOutputRange(shooterkMinOutput, shooterkMaxOutput);
+    shooter_mc.setOutputRange(shooterkMinOutput, shooterkMaxOutput);*/
     shooter2_m.follow(shooter1_m, true);
 
-    conveyor_mc.setP(ballStoragekP);
+    /*conveyor_mc.setP(ballStoragekP);
     conveyor_mc.setI(ballStoragekI);
     conveyor_mc.setD(ballStoragekD);
     conveyor_mc.setIZone(ballStoragekIz);
     conveyor_mc.setFF(ballStoragekFF);
-    conveyor_mc.setOutputRange(ballStoragekMinOutput, ballStoragekMaxOutput);
+    conveyor_mc.setOutputRange(ballStoragekMinOutput, ballStoragekMaxOutput);*/
 
-    intake_p.set(DoubleSolenoid.Value.kForward);
+    intake_p.set(DoubleSolenoid.Value.kReverse);
   }
 
   // method for pneumatics activation
   public void setIntakeArm(DoubleSolenoid.Value value) { intake_p.set(value); }
   
   // method for running conveyor belt
-  public void runConveyorBelt(boolean isBackwards) { conveyor_m.set(isBackwards==true? -0.8 : 0.8); }
+  public void runConveyorBelt(boolean isBackwards) { conveyor_m.set(1); }//conveyor_m.set(isBackwards==true? -1 : 1); }
   
   // method for running intake motor
   public void runIntakeMotor(boolean isBackwards) { intake_m.set(ControlMode.PercentOutput, isBackwards==true? -0.35 : 0.35); }
   
   // method for running shooter motor
   public void runShooter(int setPosition) {
-    shooter_mc.setReference(targetVelocities[setPosition], ControlType.kVelocity);
+    shooter1_m.set(1);
+    //shooter_mc.setReference(targetVelocities[setPosition], ControlType.kVelocity);
     SmartDashboard.putNumber("Velocity", shooter_e.getVelocity());
     SmartDashboard.putNumber("Output", shooter1_m.getAppliedOutput());
   }
@@ -86,6 +87,7 @@ public class ShooterSubsystem extends SubsystemBase {
   // HALT. YOU HAVE VIOLATED THE LAW.
   public void stop() {
     shooter1_m.set(0);
+    shooter2_m.set(0);
     conveyor_m.set(0);
     intake_m.set(ControlMode.PercentOutput, 0);
   }

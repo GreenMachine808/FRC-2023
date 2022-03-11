@@ -18,8 +18,8 @@ public class DriveControls {
   private final Joystick joystick1 = new Joystick(1);
   private final Joystick joystick2 = new Joystick(2);
 
-  public final JoystickButton slowDriveMode = new JoystickButton(joystick1, 1);
-  public final JoystickButton fastDriveMode = new JoystickButton(joystick1, 2);
+  public final JoystickButton slowDriveMode = new JoystickButton(joystick0, 1);
+  public final JoystickButton fastDriveMode = new JoystickButton(joystick0, 2);
   
   public double getForward() { return -joystick0.getRawAxis(1); }
   public double getStrafe() { return joystick0.getRawAxis(0); }
