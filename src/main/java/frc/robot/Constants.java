@@ -98,7 +98,7 @@ public final class Constants {
   public static final int CONVEYOR_MOTOR = 9;
   public static final int INTAKE_MOTOR = 8;
 
-  public static final int WEIGHT_DROPPER_CHANNEL = 65;
+  public static final int WEIGHT_DROPPER_CHANNEL = 10;
 
   // PID Constants for intake and shooter
   public static final double shooterkP = 3.0e-4;
