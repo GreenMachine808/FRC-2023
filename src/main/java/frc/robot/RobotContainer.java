@@ -7,13 +7,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import frc.robot.commands.runIntake;
+import frc.robot.commands.runShooter;
 import frc.robot.subsystems.HangSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 
@@ -63,9 +65,13 @@ public class RobotContainer {
 
     // toggleWhenPressed to change Pneumatic State
     /*controls.elevatorState.toggleWhenPressed(new StartEndCommand(
-      () -> hang.elevatorState(DoubleSolenoid.Value.kForward),
-      () -> hang.elevatorState(DoubleSolenoid.Value.kForward) ));*/
-    controls.elevatorState.whileHeld(new RunCommand( () -> hang.setElevatorState(Value.kForward)));
+      () -> hang.setElevatorState(DoubleSolenoid.Value.kForward),
+      () -> hang.setElevatorState(DoubleSolenoid.Value.kForward) ));*/
+    controls.elevatorState.whenPressed(new RunCommand( () -> hang.toggleElevator() ));
+    controls.dropElevator0_0.whenPressed(new InstantCommand( () -> hang.popWeightServo(true) ));
+    controls.shooter.whileHeld(new runShooter( new ShooterSubsystem() ));
+    controls.runIntakeForward.whileHeld(new runIntake( new ShooterSubsystem() ));
+    controls.runIntakeReverse.whileHeld(new runIntake( new ShooterSubsystem() ));
   }
   
   /**

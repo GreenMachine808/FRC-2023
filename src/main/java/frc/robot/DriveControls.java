@@ -14,17 +14,21 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class DriveControls {
   
-  private final Joystick joystick1 = new Joystick(0);
-  private final Joystick joystick2 = new Joystick(1);
-  private final Joystick joystick3 = new Joystick(2);
+  private final Joystick joystick0 = new Joystick(0);
+  private final Joystick joystick1 = new Joystick(1);
+  private final Joystick joystick2 = new Joystick(2);
 
   public final JoystickButton slowDriveMode = new JoystickButton(joystick1, 1);
   public final JoystickButton fastDriveMode = new JoystickButton(joystick1, 2);
   
-  public double getForward() { return -joystick1.getRawAxis(1); }
-  public double getStrafe() { return joystick1.getRawAxis(0); }
-  public double getYaw() { return joystick2.getRawAxis(0); }
-  public double getElevatorAxis() { return joystick3.getRawAxis(1); }
+  public double getForward() { return -joystick0.getRawAxis(1); }
+  public double getStrafe() { return joystick0.getRawAxis(0); }
+  public double getYaw() { return joystick1.getRawAxis(0); }
+  public double getElevatorAxis() { return joystick2.getRawAxis(1); }
 
-  public final JoystickButton elevatorState = new JoystickButton(joystick3, 3);
+  public final JoystickButton elevatorState = new JoystickButton(joystick2, 3);
+  public final JoystickButton dropElevator0_0 = new JoystickButton(joystick2, 10);
+  public final JoystickButton runIntakeForward = new JoystickButton(joystick1, 2);
+  public final JoystickButton runIntakeReverse = new JoystickButton(joystick1, 3);
+  public final JoystickButton shooter = new JoystickButton(joystick0, 3);
 }

@@ -5,9 +5,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.PneumaticsConstants.*;
 import static frc.robot.Constants.*;
 
 import com.revrobotics.CANSparkMax;
@@ -16,9 +16,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class HangSubsystem extends SubsystemBase {
 
   // Create variables specific to the subsystem, as well as the devices (new Motor m_motor)
-  public DoubleSolenoid elevator;
-  public CANSparkMax climb_l;
-  public CANSparkMax climb_r;
+  public final DoubleSolenoid elevator;
+  public final CANSparkMax climb_l;
+  public final CANSparkMax climb_r;
+  public final Servo weightdropper;
 
   /** Creates a new ExampleSubsystem. */
   public HangSubsystem() {
@@ -30,16 +31,23 @@ public class HangSubsystem extends SubsystemBase {
 
     climb_l = new CANSparkMax(LEFT_CLIMB_MOTOR, MotorType.kBrushless);
     climb_r = new CANSparkMax(RIGHT_CLIMB_MOTOR, MotorType.kBrushless);
+    weightdropper = new Servo(WEIGHT_DROPPER_CHANNEL);
     
+    // Maybe this work?
+    elevator.set(Value.kForward);
   }
 
   public void setElevatorState(Value state) { elevator.set(state); }
+  public void toggleElevator() { elevator.toggle(); }
 
   public void moveElevator(double movement) {
-    // Limit Switches?
     
     climb_l.set(-movement);
     climb_r.set(movement);
+  }
+
+  public void popWeightServo(boolean ye) {
+    if (ye) { weightdropper.setAngle(90); }
   }
 
   /*@Override

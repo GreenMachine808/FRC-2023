@@ -20,15 +20,12 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
 
-  public static final class PneumaticsConstants {
-    public static final int ELEVATORFORWARDCHANNEL = 0;
-    public static final int ELEVATORREVERSECHANNEL = 1;
-  
-    public static final int INTAKEFORWARDCHANNEL = 2;
-    public static final int INTAKEREVERSECHANNEL = 3;
+  public static final int ELEVATORFORWARDCHANNEL = 0;
+  public static final int ELEVATORREVERSECHANNEL = 1;
+  public static final int INTAKEFORWARDCHANNEL = 2;
+  public static final int INTAKEREVERSECHANNEL = 3;
 
-    public static final PneumaticsModuleType PNEUMATICSTYPE = PneumaticsModuleType.CTREPCM;
-  }
+  public static final PneumaticsModuleType PNEUMATICSTYPE = PneumaticsModuleType.CTREPCM;
 
   public static final class SwerveConstants {
     
@@ -92,6 +89,34 @@ public final class Constants {
     public static final double visionLowerPosition = 0.2;
   }
 
+
   public static final int LEFT_CLIMB_MOTOR = 3;
   public static final int RIGHT_CLIMB_MOTOR = 20;
+  
+  public static final int SHOOTER_1_MOTOR = 6;
+  public static final int SHOOTER_2_MOTOR = 7;
+  public static final int CONVEYOR_MOTOR = 9;
+  public static final int INTAKE_MOTOR = 8;
+
+  public static final int WEIGHT_DROPPER_CHANNEL = 65;
+
+  // PID Constants for intake and shooter
+  public static final double shooterkP = 3.0e-4;
+  public static final double shooterkI = 0;
+  public static final double shooterkD = 0.001;
+  public static final double shooterkIz = 0;
+  public static final double shooterkFF = 0;
+  public static final double shooterkMaxOutput = 1;
+  public static final double shooterkMinOutput = -1;
+  public static final double shooterMaxRPM = 4000;
+
+  public static final double ballStoragekP = 5e-5;
+  public static final double ballStoragekI = 1e-6;
+  public static final double ballStoragekD = 0;
+  public static final double ballStoragekIz = 0;
+  public static final double ballStoragekFF = 0;
+  public static final double ballStoragekMaxOutput = 1;
+  public static final double ballStoragekMinOutput = -1;
+
+  public static final double[] targetVelocities = {3300, 5000, 5800.0};
 }
