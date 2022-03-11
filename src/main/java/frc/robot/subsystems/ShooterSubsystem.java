@@ -31,7 +31,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
 
     // Set value to variables and other initialization here
-    conveyor_m = new CANSparkMax(CONVEYOR_MOTOR, MotorType.kBrushless);
+    conveyor_m = new CANSparkMax(CONVEYOR_MOTOR, MotorType.kBrushed);
     //conveyor_mc = conveyor_m.getPIDController();
     conveyor_m.restoreFactoryDefaults();
 
