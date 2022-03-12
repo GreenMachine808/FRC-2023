@@ -65,7 +65,7 @@ public class RobotContainer {
       () -> speedMod = 0.4 ));
     controls.slowDriveMode.whenHeld(new StartEndCommand(() -> speedMod = 0.15, () -> speedMod = 0.4));
 
-    controls.elevatorState.whenPressed(new RunCommand( () -> hang.toggleElevator() ));
+    controls.elevatorState.whenPressed(new InstantCommand( () -> hang.toggleElevator() ));
     controls.dropElevator0_0.whenPressed(new InstantCommand( () -> hang.popWeightServo(true) ));
     controls.shooter.whileHeld((new runShooter( shooter ) ));
     controls.runIntakeForward.whileHeld(new runIntake( shooter ));
