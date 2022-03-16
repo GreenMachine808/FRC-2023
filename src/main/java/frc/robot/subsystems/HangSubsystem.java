@@ -47,7 +47,8 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public void popWeightServo(boolean ye) {
-    if (ye) { weightdropper.setAngle(90); }
+    if (ye) { weightdropper.setAngle(0.5); }
+    else { weightdropper.setAngle(0); }
   }
 
   /*@Override
