@@ -34,7 +34,7 @@ public class HangSubsystem extends SubsystemBase {
     weightdropper = new Servo(WEIGHT_DROPPER_CHANNEL);
     
     // Maybe this work?
-    elevator.set(Value.kForward);
+    elevator.set(Value.kReverse);
   }
 
   public void setElevatorState(Value state) { elevator.set(state); }
@@ -46,9 +46,12 @@ public class HangSubsystem extends SubsystemBase {
     climb_r.set(movement);
   }
 
-  public void popWeightServo(boolean ye) {
-    if (ye) { weightdropper.setAngle(0.5); }
-    else { weightdropper.setAngle(0); }
+  public void popWeightServo(boolean down) {
+    if (down) {
+      weightdropper.setAngle(90);
+    } else {
+      weightdropper.setAngle(180);
+    }
   }
 
   /*@Override

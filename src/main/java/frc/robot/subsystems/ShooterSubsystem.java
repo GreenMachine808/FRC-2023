@@ -8,8 +8,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import static frc.robot.Constants.*;
@@ -23,7 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
   // Create variables specific to the subsystem, as well as the devices (new Motor m_motor)
   private final CANSparkMax conveyor_m, shooter1_m, shooter2_m;
   private final RelativeEncoder shooter_e;
-  private final SparkMaxPIDController shooter_mc;//, conveyor_mc;
+  //private final SparkMaxPIDController shooter_mc, conveyor_mc;
   private final TalonSRX intake_m;
   private final DoubleSolenoid intake_p;
   
@@ -37,7 +35,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooter1_m = new CANSparkMax(SHOOTER_1_MOTOR, MotorType.kBrushless);
     shooter2_m = new CANSparkMax(SHOOTER_2_MOTOR, MotorType.kBrushless);
-    shooter_mc = shooter1_m.getPIDController();
+    //shooter_mc = shooter1_m.getPIDController();
     shooter1_m.restoreFactoryDefaults();
     shooter2_m.restoreFactoryDefaults();
     shooter1_m.setInverted(true);
@@ -78,13 +76,14 @@ public class ShooterSubsystem extends SubsystemBase {
   
   // method for running shooter motor
   public void runShooter(int setPosition) {
-    shooter1_m.set(1);
+    // Until the PID settings get configured, this is what we are dealing with.
+    shooter1_m.set(0.625);
     //shooter_mc.setReference(targetVelocities[setPosition], ControlType.kVelocity);
     SmartDashboard.putNumber("Velocity", shooter_e.getVelocity());
     SmartDashboard.putNumber("Output", shooter1_m.getAppliedOutput());
   }
 
-  // HALT. YOU HAVE VIOLATED THE LAW.
+  // HALT.
   public void stop() {
     shooter1_m.set(0);
     shooter2_m.set(0);

@@ -42,7 +42,7 @@ public final class Constants {
     // Front Right
     public static final int FRONT_RIGHT_ANGLE_MOTOR = 23;
     public static final int FRONT_RIGHT_DRIVE_MOTOR = 13;
-    public static final double FRONT_RIGHT_OFFSET = 305;
+    public static final double FRONT_RIGHT_OFFSET = 302;
     public static final int FRONT_RIGHT_ENCODER = 2;
 
     // Back Right
@@ -98,7 +98,8 @@ public final class Constants {
   public static final int CONVEYOR_MOTOR = 9;
   public static final int INTAKE_MOTOR = 8;
 
-  public static final int WEIGHT_DROPPER_CHANNEL = 10;
+  // THIS IS PROBABLY WRONG
+  public static final int WEIGHT_DROPPER_CHANNEL = 0;
 
   // PID Constants for intake and shooter
   public static final double shooterkP = 3.0e-4;
@@ -119,4 +120,7 @@ public final class Constants {
   public static final double ballStoragekMinOutput = -1;
 
   public static final double[] targetVelocities = {3300, 5000, 5800.0};
+  public static final double slowSpeed = 0.15;
+  public static final double normalSpeed = 0.4;
+  public static final double sprintSpeed = 0.9;
 }

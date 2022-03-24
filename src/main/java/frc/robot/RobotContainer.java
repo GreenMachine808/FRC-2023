@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import static frc.robot.Constants.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -33,7 +34,7 @@ public class RobotContainer {
   private final ShooterSubsystem shooter = new ShooterSubsystem();
 
   private final DriveControls controls = new DriveControls();
-  private double speedMod = 1.0;
+  private double speedMod = 0.4;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -61,12 +62,10 @@ public class RobotContainer {
     // 1. Smoothing between values
     // 2. SmartDashboard data so that sprinting displayes as toggled
     controls.fastDriveMode.toggleWhenPressed(new StartEndCommand(
-      () -> speedMod = 0.9,
-      () -> speedMod = 0.4 ));
-    controls.slowDriveMode.whenHeld(new StartEndCommand(() -> speedMod = 0.15, () -> speedMod = 0.4));
+      () -> robotDrive.runSprint = true,
+      () -> robotDrive.runSprint = false ));
+    controls.slowDriveMode.whenHeld(new StartEndCommand(() -> robotDrive.runSlow = true, () -> robotDrive.runSlow = false));
 
-    controls.elevatorState.whenPressed(new InstantCommand( () -> hang.toggleElevator() ));
-    //controls.dropElevator0_0.whenPressed(new InstantCommand( () -> hang.popWeightServo(true) ));
     controls.dropElevator0_0.toggleWhenPressed(new StartEndCommand(
       () -> hang.popWeightServo(true),
       () -> hang.popWeightServo(false)
@@ -94,6 +93,22 @@ public class RobotContainer {
     if (Math.abs(value) < 0.1) {
       return 0;
     }
+
+    // Lil easing because I don't like the clicking sound. Need to replace numbers with variables though
+    if (robotDrive.runSlow) {
+      if(speedMod > slowSpeed) {
+        speedMod -= 0.1;
+      } else { speedMod = slowSpeed; }
+    } else if (robotDrive.runSprint) {
+      if (speedMod < sprintSpeed) {
+        speedMod += 0.1;
+      } else {speedMod = sprintSpeed; }
+    } else {
+      if (Math.abs(speedMod - normalSpeed) < 0.1) { speedMod = normalSpeed; }
+      else if (speedMod < normalSpeed ) {speedMod += 0.07; }
+      else {speedMod -= 0.07; }
+    }
+
 		// Modify the inputed speed based on which speed mode is currently active
     return value * speedMod;
   }

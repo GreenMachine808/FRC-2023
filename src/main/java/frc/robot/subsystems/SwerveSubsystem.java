@@ -31,6 +31,8 @@ public class SwerveSubsystem extends SubsystemBase {
   private final double kLengthComponent;
   private final double kWidthComponent;
 
+  public boolean runSlow, runSprint;
+
   /**
    * This constructs the Swerve Subsystem with the navx and given constants 
    * including the ratio of the robot length to width. 
@@ -77,6 +79,7 @@ public class SwerveSubsystem extends SubsystemBase {
    * @param azimuth robot rotation, from -1.0 (CCW) to 1.0 (CW)
    */
   public void drive(double forward, double strafe, double yaw) {
+
     isFieldOriented = SmartDashboard.getBoolean("driveMode", true);
     /* If the robot is field oriented, the inputed values are modified to 
      * be with respect to the zero of the field.

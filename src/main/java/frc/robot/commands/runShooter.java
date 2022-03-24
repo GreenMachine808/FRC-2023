@@ -6,11 +6,13 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.delayedAction;
 
 /** An example command that uses an example subsystem. */
 public class runShooter extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSubsystem m_subsystem;
+  private delayedAction delayConveyor;
 
   /**
    * Creates a new ExampleCommand.
@@ -19,19 +21,32 @@ public class runShooter extends CommandBase {
    */
   public runShooter(ShooterSubsystem subsystem) {
     m_subsystem = subsystem;
+    delayConveyor = new delayedAction();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    // This might work. If not, switch the action to flipping a boolean that gets checked in execute.
+    delayConveyor.run(500L, () -> {
+      m_subsystem.runConveyorBelt(false);
+    });
+
+    m_subsystem.runShooter(0);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.runConveyorBelt(false);
-    m_subsystem.runShooter(0);
+
+    // Can all of this be moved into initialize?
+    // What?
+
+    //m_subsystem.runConveyorBelt(false);
+    //m_subsystem.runShooter(0);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,8 +56,8 @@ public class runShooter extends CommandBase {
   }
 
   // Returns true when the command should end.
-  /*@Override
+  @Override
   public boolean isFinished() {
     return false;
-  }*/
+  }
 }
