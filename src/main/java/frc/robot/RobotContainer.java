@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import static frc.robot.Constants.*;
+import frc.robot.commands.simpleAutonomous;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -35,6 +36,8 @@ public class RobotContainer {
 
   private final DriveControls controls = new DriveControls();
   private double speedMod = 0.4;
+
+  private final Command simpleAuto = new simpleAutonomous(hang, shooter);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -84,8 +87,8 @@ public class RobotContainer {
    * 
    */
   
-  public Command getAutonomousCommandMid() {
-    return null;//autoMidCommand;
+  public Command getSimpleAuto() {
+    return simpleAuto;//autoMidCommand;
   }
 
   public double modifyInput(double value) {
