@@ -1,21 +1,25 @@
 package frc.robot;
 
-public class delayedAction extends Thread {
+public class delayedAction implements Runnable {
 
     public interface action {
         void act();
     }
 
-    // This needs the public modifier. How tf is an object supposed to be initialized if the initialization method isn-
-    // Whatever. I'm not mad
-    public delayedAction() {}
+    long desired_millis;
+    action Action;
 
-    public void run(long desired_millis, action Action) {
+    public delayedAction(long desired_millis, action Action) {
+        this.desired_millis = desired_millis;
+        this.Action = Action;
+    }
+
+    @Override
+    public void run() {
         try {
-            sleep(desired_millis);
+            Thread.sleep(desired_millis);
         } catch(InterruptedException e) {
             System.out.println("Error: desired_millis was negative");
-            interrupt();
         }
         Action.act();
 

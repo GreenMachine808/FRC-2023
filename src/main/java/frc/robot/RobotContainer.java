@@ -45,7 +45,7 @@ public class RobotContainer {
       new RunCommand(() -> robotDrive.drive(
           modifyInput(controls.getForward()),
           modifyInput(controls.getStrafe()),
-          modifyInput(controls.getYaw())), robotDrive ));
+          modifyInput(controls.getYaw() * 0.6)), robotDrive ));
     
     hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
   }

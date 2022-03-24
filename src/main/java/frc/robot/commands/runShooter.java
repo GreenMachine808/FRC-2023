@@ -13,6 +13,7 @@ public class runShooter extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSubsystem m_subsystem;
   private delayedAction delayConveyor;
+  private boolean RUNITYEA = false;
 
   /**
    * Creates a new ExampleCommand.
@@ -21,7 +22,7 @@ public class runShooter extends CommandBase {
    */
   public runShooter(ShooterSubsystem subsystem) {
     m_subsystem = subsystem;
-    delayConveyor = new delayedAction();
+    delayConveyor = new delayedAction(750L, () -> RUNITYEA = true);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -31,11 +32,7 @@ public class runShooter extends CommandBase {
   public void initialize() {
 
     // This might work. If not, switch the action to flipping a boolean that gets checked in execute.
-    delayConveyor.run(500L, () -> {
-      m_subsystem.runConveyorBelt(false);
-    });
-
-    m_subsystem.runShooter(0);
+    new Thread(delayConveyor).start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,19 +42,23 @@ public class runShooter extends CommandBase {
     // Can all of this be moved into initialize?
     // What?
 
-    //m_subsystem.runConveyorBelt(false);
-    //m_subsystem.runShooter(0);
+    if (RUNITYEA) {
+      m_subsystem.runConveyorBelt(false);
+    }
+    m_subsystem.runShooter(0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RUNITYEA = false;
     m_subsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    RUNITYEA = false;
     return false;
   }
 }
