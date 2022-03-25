@@ -10,9 +10,9 @@ public class simpleAutonomous extends SequentialCommandGroup{
 
     public simpleAutonomous(HangSubsystem hang, ShooterSubsystem shooter){
         addCommands(
-            new InstantCommand( () -> hang.popWeightServo (true) ),
+            new InstantCommand( () -> hang.popWeightServo (true) )
 
-            new InstantCommand( () -> hang.popWeightServo (false) ) 
+            //new InstantCommand( () -> hang.popWeightServo (false) ) 
             
         );
     }
