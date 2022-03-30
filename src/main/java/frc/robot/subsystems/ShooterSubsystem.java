@@ -77,7 +77,7 @@ public class ShooterSubsystem extends SubsystemBase {
   // method for running shooter motor
   public void runShooter(int setPosition) {
     // Until the PID settings get configured, this is what we are dealing with.
-    shooter1_m.set(0.625);
+    shooter1_m.set(0.7);
     //shooter_mc.setReference(targetVelocities[setPosition], ControlType.kVelocity);
     SmartDashboard.putNumber("Velocity", shooter_e.getVelocity());
     SmartDashboard.putNumber("Output", shooter1_m.getAppliedOutput());

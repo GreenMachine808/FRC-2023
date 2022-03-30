@@ -36,8 +36,8 @@ public class Robot extends TimedRobot {
     robotContainer = new RobotContainer();
   
     auto = new SendableChooser<>();
-    auto.setDefaultOption("Simple Auto", robotContainer.getSimpleAuto());
-    auto.addOption("CommandBase Auto", robotContainer.getCommandBaseAuto());
+    //auto.setDefaultOption("Simple Auto", robotContainer.getSimpleAuto());
+    auto.setDefaultOption("CommandBase Auto", robotContainer.getCommandBaseAuto());
     SmartDashboard.putData("Auto Mode", auto);
   }
 

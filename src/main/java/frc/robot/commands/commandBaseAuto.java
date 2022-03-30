@@ -17,15 +17,15 @@ import frc.robot.delayedAction;
 import frc.robot.timedAction;
 
 public class commandBaseAuto extends SequentialCommandGroup{
-    private final HangSubsystem hang = new HangSubsystem();
-    private final ShooterSubsystem shooter = new ShooterSubsystem();
-    private final SwerveSubsystem drive = new SwerveSubsystem();
+   
     private Timer timer = new Timer();
     private timedAction deadline;
-
+    private SwerveSubsystem drive;
+    ShooterSubsystem shooter;
     
-    public commandBaseAuto(){
-     
+    public commandBaseAuto(SwerveSubsystem drive, ShooterSubsystem shooter) {
+     this.drive = drive;
+     this.shooter = shooter;
     }
 
     @Override
@@ -43,5 +43,7 @@ public class commandBaseAuto extends SequentialCommandGroup{
     @Override
     public void execute(){
         new ParallelDeadlineGroup( new InstantCommand( () -> new Thread(deadline).start() ), new runIntake(shooter) );
+
+        
     }    
 }

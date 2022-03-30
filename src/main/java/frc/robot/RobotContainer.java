@@ -38,8 +38,8 @@ public class RobotContainer {
   private final DriveControls controls = new DriveControls();
   private double speedMod = 0.4;
 
-  private final Command simpleAuto = new simpleAutonomous(hang, shooter);
-  private final Command commandBaseAuto = new commandBaseAuto();
+  //private final Command simpleAuto = new simpleAutonomous(hang, shooter);
+  private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -54,7 +54,7 @@ public class RobotContainer {
     
     hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
 
-    hang.weightdropper.setAngle(180);
+    // hang.weightdropper.setAngle(180);
   }
 
   /**
@@ -81,6 +81,9 @@ public class RobotContainer {
     controls.shooter.whileHeld((new runShooter( shooter ) ));
     controls.runIntakeForward.whileHeld(new runIntake( shooter ));
     controls.runIntakeReverse.whileHeld(new runIntakeReverse( shooter ));
+
+    controls.elevatorState.whenPressed(new InstantCommand(
+      () -> hang.toggleElevator() ));
   }
   
   /**
@@ -91,11 +94,11 @@ public class RobotContainer {
    * 
    */
   
-  public Command getSimpleAuto() {
+  /*public Command getSimpleAuto() {
     return simpleAuto;//autoMidCommand;
   }
 
-  public Command getCommandBaseAuto() {
+  */public Command getCommandBaseAuto() {
     return commandBaseAuto;
   }
 
