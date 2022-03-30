@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import static frc.robot.Constants.*;
 import frc.robot.commands.simpleAutonomous;
+import frc.robot.commands.commandBaseAuto;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -38,6 +39,7 @@ public class RobotContainer {
   private double speedMod = 0.4;
 
   private final Command simpleAuto = new simpleAutonomous(hang, shooter);
+  private final Command commandBaseAuto = new commandBaseAuto();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -51,6 +53,8 @@ public class RobotContainer {
           modifyInput(controls.getYaw() * 0.6)), robotDrive ));
     
     hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
+
+    hang.weightdropper.setAngle(180);
   }
 
   /**
@@ -89,6 +93,10 @@ public class RobotContainer {
   
   public Command getSimpleAuto() {
     return simpleAuto;//autoMidCommand;
+  }
+
+  public Command getCommandBaseAuto() {
+    return commandBaseAuto;
   }
 
   public double modifyInput(double value) {
