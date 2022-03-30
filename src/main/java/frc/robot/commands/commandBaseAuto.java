@@ -41,14 +41,7 @@ public class commandBaseAuto extends SequentialCommandGroup{
         timer.start();
         drive.initDrive();
 
-        //deadline = new timedAction(10000, () -> {});
 
-    } 
-
-    
-
-    @Override
-    public void execute(){
         new ParallelDeadlineGroup( 
             new InstantCommand( () -> new Thread(new timedAction(10000, () -> {}) ).start() ), 
             new runIntake(shooter)
@@ -58,6 +51,16 @@ public class commandBaseAuto extends SequentialCommandGroup{
         do {
             drive.drive(0, 0, 0.25);
           } while ((Math.abs(180.0 - drive.gyro.getAngle()) > 1.0) || !(timer.advanceIfElapsed(4)));
+
+        //deadline = new timedAction(10000, () -> {});
+
+    } 
+
+    
+
+    @Override
+    public void execute(){
+        
     }    
 
         
