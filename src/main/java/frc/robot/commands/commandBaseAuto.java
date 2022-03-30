@@ -60,15 +60,15 @@ public class commandBaseAuto extends SequentialCommandGroup{
 
     @Override
     public void execute(){
-        
+        new Thread(new timedAction(15000, () -> {}) ).start();
     }    
 
         
 
-    /* 
+    
     @Override
     public boolean isFinished(){
         return true;
     }
-    */
+    
 }
