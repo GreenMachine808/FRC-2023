@@ -39,7 +39,7 @@ public class RobotContainer {
   private double speedMod = 0.4;
 
   private final Command simpleAuto = new simpleAutonomous(hang, shooter);
-  private final Command commandBaseAuto = new commandBaseAuto();
+  private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
