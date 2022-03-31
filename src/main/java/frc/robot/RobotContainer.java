@@ -17,6 +17,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import static frc.robot.Constants.*;
@@ -37,6 +38,7 @@ public class RobotContainer {
 
   private final DriveControls controls = new DriveControls();
   private double speedMod = 0.4;
+  private double turnMod = 0.4;
 
   //private final Command simpleAuto = new simpleAutonomous(hang, shooter);
   //private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
@@ -48,11 +50,12 @@ public class RobotContainer {
     configureButtonBindings();
     robotDrive.setDefaultCommand(
       new RunCommand(() -> robotDrive.drive(
-          modifyInput(controls.getForward()),
-          modifyInput(controls.getStrafe()),
-          modifyInput(controls.getYaw() * 0.6)), robotDrive ));
+          modifyDriveInput(controls.getForward()),
+          modifyDriveInput(controls.getStrafe()),
+          modifyTurnInput(controls.getYaw() * 0.6)), robotDrive ));
     
     hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
+    //hang.setDefaultCommand(new RunCommand(new ParallelCommandGroup(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang)) );
 
     // hang.weightdropper.setAngle(180);
   }
@@ -68,15 +71,27 @@ public class RobotContainer {
     // Fast drive is toggled, and slow mode is a hold to activate. Need to implement:
     // 1. Smoothing between values
     // 2. SmartDashboard data so that sprinting displayes as toggled
+
+    //Make this a .whenHeld? Want to make this consistant?
     controls.fastDriveMode.toggleWhenPressed(new StartEndCommand(
       () -> robotDrive.runSprint = true,
       () -> robotDrive.runSprint = false ));
-    controls.slowDriveMode.whenHeld(new StartEndCommand(() -> robotDrive.runSlow = true, () -> robotDrive.runSlow = false));
+    controls.slowDriveMode.whenHeld(new StartEndCommand(
+      () -> robotDrive.runSlow = true, 
+      () -> robotDrive.runSlow = false ));
+
+    controls.fastTurnMode.toggleWhenPressed(new StartEndCommand(
+      () -> robotDrive.turnSprint = true, 
+      () -> robotDrive.turnSprint = false ));
+    controls.slowTurnMode.whenHeld(new StartEndCommand(
+      () -> robotDrive.turnSlow = true,
+      () -> robotDrive.turnSlow = false ));
 
     controls.dropElevator0_0.toggleWhenPressed(new StartEndCommand(
       () -> hang.popWeightServo(true),
       () -> hang.popWeightServo(false)
     ));
+    //Should we change this to a more convenient button?
     
     controls.shooter.whileHeld((new runShooter( shooter ) ));
     controls.runIntakeForward.whileHeld(new runIntake( shooter ));
@@ -104,7 +119,7 @@ public class RobotContainer {
   }
   */
 
-  public double modifyInput(double value) {
+  public double modifyDriveInput(double value) {
     // Deadband
     if (Math.abs(value) < 0.1) {
       return 0;
@@ -127,6 +142,35 @@ public class RobotContainer {
 
 		// Modify the inputed speed based on which speed mode is currently active
     return value * speedMod;
+  }
+
+  public double modifyTurnInput(double value) {
+    // Deadband
+    if (Math.abs(value) < 0.1) {
+      return 0;
+    }
+
+    // Lil easing because I don't like the clicking sound. Need to replace numbers with variables though
+    if (robotDrive.turnSlow) {
+      if(turnMod > slowSpeed) {
+        turnMod -= 0.1;
+      } 
+      else { turnMod = slowSpeed; }
+      } 
+      else if (robotDrive.turnSprint) {
+        if (turnMod < sprintSpeed) {
+        turnMod += 0.1;
+        } 
+        else {turnMod = sprintSpeed; }
+      } 
+      else {
+        if (Math.abs(turnMod - normalSpeed) < 0.1) { turnMod = normalSpeed; }
+        else if (turnMod < normalSpeed ) { turnMod += 0.07; }
+        else { turnMod -= 0.07; }
+    }
+
+		// Modify the inputed speed based on which speed mode is currently active
+    return value * turnMod;
   }
 
   public SwerveSubsystem getSwerve() {

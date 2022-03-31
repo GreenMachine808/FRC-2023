@@ -41,6 +41,9 @@ public class commandBaseAuto extends SequentialCommandGroup{
         timer.start();
         drive.initDrive();
 
+
+        
+
         //deadline = new timedAction(10000, () -> {});
 
     } 
@@ -62,10 +65,10 @@ public class commandBaseAuto extends SequentialCommandGroup{
 
         
 
-    /* 
+    
     @Override
     public boolean isFinished(){
         return true;
     }
-    */
+    
 }
