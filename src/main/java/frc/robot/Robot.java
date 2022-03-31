@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    
     SmartDashboard.putNumber("Speed modifier: ", robotContainer.getSpeedMod());
     SmartDashboard.putNumber("Turn modifier: ", robotContainer.getTurnMod());
     SmartDashboard.putNumber("Compressor PSI: ", robotContainer.getPSI());
@@ -96,7 +97,8 @@ public class Robot extends TimedRobot {
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {

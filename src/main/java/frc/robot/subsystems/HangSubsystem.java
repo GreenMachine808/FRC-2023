@@ -22,7 +22,7 @@ public class HangSubsystem extends SubsystemBase {
   public final CANSparkMax climb_l;
   public final CANSparkMax climb_r;
   public final Servo weightdropper;
-  public final Compressor phCompressor = new Compressor(8, PNEUMATICSTYPE);
+  public final Compressor phCompressor = new Compressor(PNEUMATICSTYPE);
 
   /** Creates a new ExampleSubsystem. */
   public HangSubsystem() {

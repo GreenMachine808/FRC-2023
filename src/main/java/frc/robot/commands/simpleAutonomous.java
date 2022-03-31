@@ -33,20 +33,29 @@ public class simpleAutonomous extends SequentialCommandGroup{
         timer.reset();
         timer.start();
         drive.initDrive();
-
+        /* do {
+            drive.driveSetDistance(-2);
+        } while ( !timer.hasElapsed(4) );
+        */
+        //hang.popWeightServo(true);
     }
 
     @Override
     public void execute(){
-        addCommands(new runShooter(shooter));
-        timer.advanceIfElapsed(4);
+        hang.popWeightServo(true);
+        new InstantCommand(() -> new runShooter(shooter));
+
+        timer.delay(3);
+       
+        hang.popWeightServo(false);
         
+        timer.delay(3);
     }
 
 
     @Override
     public boolean isFinished(){
-        return true;
+        return false;
     }
 
 }
