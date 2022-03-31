@@ -54,8 +54,10 @@ public class RobotContainer {
           modifyDriveInput(controls.getStrafe()),
           modifyTurnInput(controls.getYaw() * 0.6)), robotDrive ));
     
-    hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
-    //hang.setDefaultCommand(new RunCommand(new ParallelCommandGroup(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang)) );
+    //hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
+      hang.setDefaultCommand(new ParallelCommandGroup(
+        new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5)),
+        new RunCommand(() -> hang.popWeightServo(false)) ));
 
     // hang.weightdropper.setAngle(180);
   }
@@ -87,10 +89,13 @@ public class RobotContainer {
       () -> robotDrive.turnSlow = true,
       () -> robotDrive.turnSlow = false ));
 
-    controls.dropElevator0_0.toggleWhenPressed(new StartEndCommand(
+    /* controls.dropElevator0_0.toggleWhenPressed(new StartEndCommand(
       () -> hang.popWeightServo(true),
-      () -> hang.popWeightServo(false)
-    ));
+      () -> hang.popWeightServo(false) ));
+    */
+
+    controls.dropElevator0_0.whileHeld(new RunCommand(
+      () -> hang.popWeightServo(true) ));
     //Should we change this to a more convenient button?
     
     controls.shooter.whileHeld((new runShooter( shooter ) ));
