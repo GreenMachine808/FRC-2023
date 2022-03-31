@@ -42,15 +42,7 @@ public class commandBaseAuto extends SequentialCommandGroup{
         drive.initDrive();
 
 
-        new ParallelDeadlineGroup( 
-            new InstantCommand( () -> new Thread(new timedAction(10000, () -> {}) ).start() ), 
-            new runIntake(shooter)
-            
-            );
-        new InstantCommand(() -> drive.driveSetDistance(-2));
-        do {
-            drive.drive(0, 0, 0.25);
-          } while ((Math.abs(180.0 - drive.gyro.getAngle()) > 1.0) || !(timer.advanceIfElapsed(4)));
+        
 
         //deadline = new timedAction(10000, () -> {});
 
@@ -60,7 +52,15 @@ public class commandBaseAuto extends SequentialCommandGroup{
 
     @Override
     public void execute(){
-        new Thread(new timedAction(15000, () -> {}) ).start();
+        new ParallelDeadlineGroup( 
+            new InstantCommand( () -> new Thread(new timedAction(10000, () -> {}) ).start() ), 
+            new runIntake(shooter)
+            
+            );
+        new InstantCommand(() -> drive.driveSetDistance(-2));
+        do {
+            drive.drive(0, 0, 0.25);
+          } while ((Math.abs(180.0 - drive.gyro.getAngle()) > 1.0) || !(timer.advanceIfElapsed(4)));
     }    
 
         
