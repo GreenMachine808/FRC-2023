@@ -30,7 +30,7 @@ public class DriveControls {
   public double getYaw() { return joystick1.getRawAxis(0); }
   public double getElevatorAxis() { return joystick2.getRawAxis(1); }
 
-  public final JoystickButton shooter = new JoystickButton(joystick2, 2);
+  public final JoystickButton shooter = new JoystickButton(joystick2, 1);
 
   public final JoystickButton elevatorState = new JoystickButton(joystick2, 3);
   public final JoystickButton dropElevator0_0 = new JoystickButton(joystick2, 10);
