@@ -53,6 +53,7 @@ public class commandBaseAuto extends SequentialCommandGroup{
     @Override
     public void execute(){
         new runIntake(shooter);
+        new InstantCommand(() -> hang.popWeightServo(true));
         timer.advanceIfElapsed(4);
         /* new ParallelDeadlineGroup( 
             new InstantCommand( () -> new Thread(new timedAction(10000, () -> {}) ).start() ), 

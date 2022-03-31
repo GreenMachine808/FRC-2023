@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.runIntake;
 import frc.robot.commands.runIntakeReverse;
@@ -37,8 +38,10 @@ public class RobotContainer {
   private final ShooterSubsystem shooter = new ShooterSubsystem();
 
   private final DriveControls controls = new DriveControls();
+
   private double speedMod = 0.4;
   private double turnMod = 0.4;
+  
 
   private final Command simpleAuto = new simpleAutonomous(hang, shooter, robotDrive);
   //private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
@@ -188,4 +191,13 @@ public class RobotContainer {
   public double getSpeedMod() {
     return speedMod;
   }
+
+  public double getTurnMod(){
+    return turnMod;
+  }
+
+  public double getPSI() {
+    return hang.phCompressor.getPressure();
+  }
+
 }

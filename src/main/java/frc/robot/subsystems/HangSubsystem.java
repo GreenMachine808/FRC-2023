@@ -5,10 +5,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.Compressor;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -20,6 +22,7 @@ public class HangSubsystem extends SubsystemBase {
   public final CANSparkMax climb_l;
   public final CANSparkMax climb_r;
   public final Servo weightdropper;
+  public final Compressor phCompressor = new Compressor(8, PNEUMATICSTYPE);
 
   /** Creates a new ExampleSubsystem. */
   public HangSubsystem() {
@@ -53,6 +56,7 @@ public class HangSubsystem extends SubsystemBase {
       weightdropper.setAngle(180);
     }
   }
+
 
   /*@Override
   public void periodic() {
