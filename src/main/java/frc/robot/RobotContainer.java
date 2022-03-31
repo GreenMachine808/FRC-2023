@@ -40,7 +40,7 @@ public class RobotContainer {
   private double speedMod = 0.4;
   private double turnMod = 0.4;
 
-  //private final Command simpleAuto = new simpleAutonomous(hang, shooter);
+  private final Command simpleAuto = new simpleAutonomous(hang, shooter);
   //private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -54,11 +54,11 @@ public class RobotContainer {
           modifyDriveInput(controls.getStrafe()),
           modifyTurnInput(controls.getYaw() * 0.6)), robotDrive ));
     
-    //hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
-      hang.setDefaultCommand(new ParallelCommandGroup(
+    hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
+    /* hang.setDefaultCommand(new ParallelCommandGroup(
         new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5)),
-        new RunCommand(() -> hang.popWeightServo(false)) ));
-
+        new RunCommand(() -> hang.popWeightServo(false), hang) ));
+    */
     // hang.weightdropper.setAngle(180);
   }
 
@@ -89,13 +89,14 @@ public class RobotContainer {
       () -> robotDrive.turnSlow = true,
       () -> robotDrive.turnSlow = false ));
 
-    /* controls.dropElevator0_0.toggleWhenPressed(new StartEndCommand(
+    controls.dropElevator0_0.toggleWhenPressed(new StartEndCommand(
       () -> hang.popWeightServo(true),
       () -> hang.popWeightServo(false) ));
-    */
+    
 
-    controls.dropElevator0_0.whileHeld(new RunCommand(
+    /* controls.dropElevator0_0.whileHeld(new RunCommand(
       () -> hang.popWeightServo(true) ));
+    */
     //Should we change this to a more convenient button?
     
     controls.shooter.whileHeld((new runShooter( shooter ) ));
@@ -114,11 +115,11 @@ public class RobotContainer {
    * 
    */
   
-  /*public Command getSimpleAuto() {
+  public Command getSimpleAuto() {
     return simpleAuto;//autoMidCommand;
   }
 
-  */
+  
   /*public Command getCommandBaseAuto() {
     return commandBaseAuto;
   }
