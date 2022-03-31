@@ -40,7 +40,7 @@ public class RobotContainer {
   private double speedMod = 0.4;
   private double turnMod = 0.4;
 
-  private final Command simpleAuto = new simpleAutonomous(hang, shooter);
+  private final Command simpleAuto = new simpleAutonomous(hang, shooter, robotDrive);
   //private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -52,7 +52,7 @@ public class RobotContainer {
       new RunCommand(() -> robotDrive.drive(
           modifyDriveInput(controls.getForward()),
           modifyDriveInput(controls.getStrafe()),
-          modifyTurnInput(controls.getYaw() * 0.6)), robotDrive ));
+          modifyTurnInput(controls.getYaw() * 0.7)), robotDrive ));
     
     hang.setDefaultCommand(new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5), hang));
     /* hang.setDefaultCommand(new ParallelCommandGroup(
@@ -92,6 +92,8 @@ public class RobotContainer {
     controls.dropElevator0_0.toggleWhenPressed(new StartEndCommand(
       () -> hang.popWeightServo(true),
       () -> hang.popWeightServo(false) ));
+
+    controls.resetDrive.whenPressed(new InstantCommand(() -> robotDrive.initDrive()) );
     
 
     /* controls.dropElevator0_0.whileHeld(new RunCommand(
