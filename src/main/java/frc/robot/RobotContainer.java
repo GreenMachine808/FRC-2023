@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import static frc.robot.Constants.*;
 import frc.robot.commands.simpleAutonomous;
-import frc.robot.commands.commandBaseAuto;
+//import frc.robot.commands.commandBaseAuto;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -44,6 +44,8 @@ public class RobotContainer {
   
 
   private final Command simpleAuto = new simpleAutonomous(hang, shooter, robotDrive);
+
+  
   //private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -62,7 +64,7 @@ public class RobotContainer {
         new RunCommand(() -> hang.moveElevator(controls.getElevatorAxis() * 0.5)),
         new RunCommand(() -> hang.popWeightServo(false), hang) ));
     */
-    // hang.weightdropper.setAngle(180);
+    hang.weightdropper.setAngle(180);
   }
 
   /**
@@ -81,14 +83,15 @@ public class RobotContainer {
     controls.fastDriveMode.toggleWhenPressed(new StartEndCommand(
       () -> robotDrive.runSprint = true,
       () -> robotDrive.runSprint = false ));
-    controls.slowDriveMode.whenHeld(new StartEndCommand(
+    controls.slowDriveMode.whileHeld(new StartEndCommand(
       () -> robotDrive.runSlow = true, 
       () -> robotDrive.runSlow = false ));
 
-    controls.fastTurnMode.toggleWhenPressed(new StartEndCommand(
+    /* controls.fastTurnMode.toggleWhenPressed(new StartEndCommand(
       () -> robotDrive.turnSprint = true, 
       () -> robotDrive.turnSprint = false ));
-    controls.slowTurnMode.whenHeld(new StartEndCommand(
+      */
+    controls.slowTurnMode.toggleWhenPressed(new StartEndCommand(
       () -> robotDrive.turnSlow = true,
       () -> robotDrive.turnSlow = false ));
 
@@ -164,21 +167,9 @@ public class RobotContainer {
 
     // Lil easing because I don't like the clicking sound. Need to replace numbers with variables though
     if (robotDrive.turnSlow) {
-      if(turnMod > slowSpeed) {
-        turnMod -= 0.1;
-      } 
-      else { turnMod = slowSpeed; }
-      } 
-      else if (robotDrive.turnSprint) {
-        if (turnMod < sprintSpeed) {
-        turnMod += 0.1;
-        } 
-        else {turnMod = sprintSpeed; }
-      } 
-      else {
-        if (Math.abs(turnMod - normalSpeed) < 0.1) { turnMod = normalSpeed; }
-        else if (turnMod < normalSpeed ) { turnMod += 0.07; }
-        else { turnMod -= 0.07; }
+      turnMod = slowSpeed;
+    } else {
+      turnMod = normalSpeed;
     }
 
 		// Modify the inputed speed based on which speed mode is currently active
@@ -197,8 +188,8 @@ public class RobotContainer {
     return turnMod;
   }
 
-  public double getPSI() {
+   public double getPSI() {
     return hang.phCompressor.getPressure();
   }
-
+  
 }

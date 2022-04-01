@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.HangSubsystem;
+import frc.robot.RobotContainer;
 import frc.robot.commands.runShooter;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -14,12 +15,19 @@ public class simpleAutonomous extends SequentialCommandGroup{
     private HangSubsystem hang;
     private ShooterSubsystem shooter;
     private SwerveSubsystem drive;
+    private RobotContainer robotContainer;
+
+    
     private Timer timer = new Timer();
 
     public simpleAutonomous(HangSubsystem hang, ShooterSubsystem shooter, SwerveSubsystem drive){
         this.hang = hang;
         this.shooter = shooter;
         this.drive = drive;
+
+        // I think this is really bad practice
+        shooter.getRunShooter();
+
         
         /* addCommands(
             new InstantCommand( () -> hang.popWeightServo (true) )    
@@ -33,6 +41,8 @@ public class simpleAutonomous extends SequentialCommandGroup{
         timer.reset();
         timer.start();
         drive.initDrive();
+        //drive.driveSetDistance(2);
+        
         /* do {
             drive.driveSetDistance(-2);
         } while ( !timer.hasElapsed(4) );
@@ -42,20 +52,44 @@ public class simpleAutonomous extends SequentialCommandGroup{
 
     @Override
     public void execute(){
-        hang.popWeightServo(true);
-        new InstantCommand(() -> new runShooter(shooter));
-
-        timer.delay(3);
-       
-        hang.popWeightServo(false);
+        //hang.popWeightServo(true);
+        //new InstantCommand(() -> new runShooter(shooter));
+        timer.delay(0.5);
         
-        timer.delay(3);
+        //shooter.getRunShooter().run();
+       
+        //timer.delay(3);
+       
+        drive.driveSetDistance(-60);
+
+        timer.delay(10);
+
+        /**
+         * Test: Make a program to print the value of a public number,
+         * and have a threa change the value of the number after a set time
+         * pseudo code:
+         * public num_val
+         * new Thread()
+         * for loop
+         *     sleep(100)
+         *     print num_val
+         * -----threadcode
+         * sleep(500)
+         * change num_val
+         */
+
+         /**
+          * or like try to pass an event that runs once the thread
+          has been completed
+          */
+
+        
     }
 
 
     @Override
     public boolean isFinished(){
-        return false;
+        return true;
     }
 
 }

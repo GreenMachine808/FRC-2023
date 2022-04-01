@@ -9,12 +9,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import static frc.robot.Constants.*;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.runShooter;
 
 public class ShooterSubsystem extends SubsystemBase {
   
@@ -24,6 +26,7 @@ public class ShooterSubsystem extends SubsystemBase {
   //private final SparkMaxPIDController shooter_mc, conveyor_mc;
   private final TalonSRX intake_m;
   private final DoubleSolenoid intake_p;
+  private final Command runShooterCo = new runShooter(this);
   
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
@@ -46,6 +49,8 @@ public class ShooterSubsystem extends SubsystemBase {
     intake_p = new DoubleSolenoid(PNEUMATICSTYPE, INTAKEFORWARDCHANNEL,
       INTAKEREVERSECHANNEL);
 
+
+    
     // PID Constants. CURRENTLY YOINKED FROM 2020 CODE
     /*shooter_mc.setP(shooterkP);
     shooter_mc.setI(shooterkI);
@@ -77,10 +82,14 @@ public class ShooterSubsystem extends SubsystemBase {
   // method for running shooter motor
   public void runShooter(int setPosition) {
     // Until the PID settings get configured, this is what we are dealing with.
-    shooter1_m.set(0.7);
+    shooter1_m.set(0.9);
     //shooter_mc.setReference(targetVelocities[setPosition], ControlType.kVelocity);
     SmartDashboard.putNumber("Velocity", shooter_e.getVelocity());
     SmartDashboard.putNumber("Output", shooter1_m.getAppliedOutput());
+  }
+
+  public Command getRunShooter(){
+    return runShooterCo;
   }
 
   // HALT.
@@ -90,4 +99,5 @@ public class ShooterSubsystem extends SubsystemBase {
     conveyor_m.set(0);
     intake_m.set(ControlMode.PercentOutput, 0);
   }
+
 }
