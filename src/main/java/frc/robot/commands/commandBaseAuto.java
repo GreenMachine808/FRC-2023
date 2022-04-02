@@ -25,14 +25,12 @@ public class commandBaseAuto extends SequentialCommandGroup{
     private ShooterSubsystem shooter;
     private SwerveSubsystem drive;
     private Timer timer = new Timer();
-    private timedAction deadline;
-
-    private final Command runShooter = new runShooter(shooter);
 
     
-    public commandBaseAuto(SwerveSubsystem drive, ShooterSubsystem shooter){
+    public commandBaseAuto(HangSubsystem hang, SwerveSubsystem drive, ShooterSubsystem shooter){
         this.drive = drive;
         this.shooter = shooter;
+        this.hang = hang;
     }
 
     @Override
@@ -52,9 +50,12 @@ public class commandBaseAuto extends SequentialCommandGroup{
 
     @Override
     public void execute(){
-        new runIntake(shooter);
-        new InstantCommand(() -> hang.popWeightServo(true));
-        timer.advanceIfElapsed(4);
+
+        timer.delay(0.5);
+        
+        drive.driveSetDistance(-60);
+        
+        timer.delay(6);
         /* new ParallelDeadlineGroup( 
             new InstantCommand( () -> new Thread(new timedAction(10000, () -> {}) ).start() ), 
             new runIntake(shooter)

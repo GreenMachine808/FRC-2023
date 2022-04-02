@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
 
 
     auto.setDefaultOption("Simple Auto", robotContainer.getSimpleAuto());
+    auto.addOption("Drive Back Auto", robotContainer.getDriveBackAuto());
     //auto.setDefaultOption("CommandBase Auto", robotContainer.getCommandBaseAuto());
     SmartDashboard.putData("Auto Mode", auto);
   }

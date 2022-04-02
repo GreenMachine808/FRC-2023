@@ -121,6 +121,8 @@ public final class Constants {
 
   public static final double[] targetVelocities = {3300, 5000, 5800.0};
   public static final double slowSpeed = 0.15;
-  public static final double normalSpeed = 0.45;
-  public static final double sprintSpeed = 0.9;
+  public static final double normalSpeed = 0.30;
+  public static final double sprintSpeed = 0.5;
+
+  public static final double normalTurn = 0.30;
 }

@@ -56,13 +56,27 @@ public class simpleAutonomous extends SequentialCommandGroup{
         //new InstantCommand(() -> new runShooter(shooter));
         timer.delay(0.5);
         
-        //shooter.getRunShooter().run();
+        shooter.getRunShooter().initialize();
+        shooter.getRunIntake().initialize();
+        shooter.getRunShooter().execute();
+
+        timer.delay(1.5);
+
+        shooter.getRunIntake().execute();
+
+
+        //shooter.runConveyorBelt(isBackwards);
        
-        //timer.delay(3);
+        timer.delay(3);
+
+        shooter.getRunShooter().end(true);
+        shooter.getRunIntake().end(true);
+        
+        timer.delay(0.5);
        
         drive.driveSetDistance(-60);
 
-        timer.delay(10);
+        timer.delay(7);
 
         /**
          * Test: Make a program to print the value of a public number,

@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.commandBaseAuto;
 import frc.robot.commands.runIntake;
 import frc.robot.commands.runIntakeReverse;
 import frc.robot.commands.runShooter;
@@ -44,6 +45,7 @@ public class RobotContainer {
   
 
   private final Command simpleAuto = new simpleAutonomous(hang, shooter, robotDrive);
+  private final Command driveBackAuto = new commandBaseAuto(hang, robotDrive, shooter);
 
   
   //private final Command commandBaseAuto = new commandBaseAuto(robotDrive, shooter);
@@ -127,6 +129,10 @@ public class RobotContainer {
     return simpleAuto;//autoMidCommand;
   }
 
+  public Command getDriveBackAuto() {
+    return driveBackAuto;
+  }
+
   
   /*public Command getCommandBaseAuto() {
     return commandBaseAuto;
@@ -169,7 +175,7 @@ public class RobotContainer {
     if (robotDrive.turnSlow) {
       turnMod = slowSpeed;
     } else {
-      turnMod = normalSpeed;
+      turnMod = normalTurn;
     }
 
 		// Modify the inputed speed based on which speed mode is currently active

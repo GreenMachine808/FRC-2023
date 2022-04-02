@@ -16,6 +16,7 @@ import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.runIntake;
 import frc.robot.commands.runShooter;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -27,6 +28,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private final TalonSRX intake_m;
   private final DoubleSolenoid intake_p;
   private final Command runShooterCo = new runShooter(this);
+  private final Command runIntakeCo = new runIntake(this);
   
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
@@ -82,7 +84,7 @@ public class ShooterSubsystem extends SubsystemBase {
   // method for running shooter motor
   public void runShooter(int setPosition) {
     // Until the PID settings get configured, this is what we are dealing with.
-    shooter1_m.set(0.9);
+    shooter1_m.set(0.75);
     //shooter_mc.setReference(targetVelocities[setPosition], ControlType.kVelocity);
     SmartDashboard.putNumber("Velocity", shooter_e.getVelocity());
     SmartDashboard.putNumber("Output", shooter1_m.getAppliedOutput());
@@ -90,6 +92,10 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public Command getRunShooter(){
     return runShooterCo;
+  }
+
+  public Command getRunIntake(){
+    return runIntakeCo;
   }
 
   // HALT.
