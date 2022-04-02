@@ -82,9 +82,9 @@ public class ShooterSubsystem extends SubsystemBase {
   public void runIntakeMotor(boolean isBackwards) { intake_m.set(ControlMode.PercentOutput, isBackwards==true? -1 : 1); }
   
   // method for running shooter motor
-  public void runShooter(int setPosition) {
+  public void runShooter(double setPosition) {
     // Until the PID settings get configured, this is what we are dealing with.
-    shooter1_m.set(0.75);
+    shooter1_m.set(setPosition);
     //shooter_mc.setReference(targetVelocities[setPosition], ControlType.kVelocity);
     SmartDashboard.putNumber("Velocity", shooter_e.getVelocity());
     SmartDashboard.putNumber("Output", shooter1_m.getAppliedOutput());

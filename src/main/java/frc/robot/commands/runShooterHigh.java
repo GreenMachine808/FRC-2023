@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.delayedAction;
 
 /** An example command that uses an example subsystem. */
-public class runShooter extends CommandBase {
+public class runShooterHigh extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSubsystem m_subsystem;
   private delayedAction delayConveyor;
@@ -20,7 +20,7 @@ public class runShooter extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public runShooter(ShooterSubsystem subsystem) {
+  public runShooterHigh(ShooterSubsystem subsystem) {
     m_subsystem = subsystem;
     delayConveyor = new delayedAction(750L, () -> RUNITYEA = true);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -45,7 +45,7 @@ public class runShooter extends CommandBase {
     if (RUNITYEA) {
       m_subsystem.runConveyorBelt(false);
     }
-    m_subsystem.runShooter(0.75);
+    m_subsystem.runShooter(0.9);
   }
 
   // Called once the command ends or is interrupted.

@@ -14,6 +14,7 @@ import frc.robot.commands.commandBaseAuto;
 import frc.robot.commands.runIntake;
 import frc.robot.commands.runIntakeReverse;
 import frc.robot.commands.runShooter;
+import frc.robot.commands.runShooterHigh;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -110,6 +111,8 @@ public class RobotContainer {
     //Should we change this to a more convenient button?
     
     controls.shooter.whileHeld((new runShooter( shooter ) ));
+    controls.shooterHigh.whileHeld(new runShooterHigh( shooter ));
+
     controls.runIntakeForward.whileHeld(new runIntake( shooter ));
     controls.runIntakeReverse.whileHeld(new runIntakeReverse( shooter ));
 
