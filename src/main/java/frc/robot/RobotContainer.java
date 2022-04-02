@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.commandBaseAuto;
 import frc.robot.commands.runIntake;
 import frc.robot.commands.runIntakeReverse;
+import frc.robot.commands.runIntakeTwo;
 import frc.robot.commands.runShooter;
 import frc.robot.commands.runShooterHigh;
 import frc.robot.subsystems.HangSubsystem;
@@ -83,10 +84,10 @@ public class RobotContainer {
     // 2. SmartDashboard data so that sprinting displayes as toggled
 
     //Make this a .whenHeld? Want to make this consistant?
-    controls.fastDriveMode.toggleWhenPressed(new StartEndCommand(
+    controls.fastDriveMode.whileHeld(new StartEndCommand(
       () -> robotDrive.runSprint = true,
       () -> robotDrive.runSprint = false ));
-    controls.slowDriveMode.whileHeld(new StartEndCommand(
+    controls.slowDriveMode.toggleWhenPressed(new StartEndCommand(
       () -> robotDrive.runSlow = true, 
       () -> robotDrive.runSlow = false ));
 
@@ -115,6 +116,7 @@ public class RobotContainer {
 
     controls.runIntakeForward.whileHeld(new runIntake( shooter ));
     controls.runIntakeReverse.whileHeld(new runIntakeReverse( shooter ));
+    controls.runIntakeTwo.whileHeld(new runIntakeTwo( shooter ));
 
     controls.elevatorState.whenPressed(new InstantCommand(
       () -> hang.toggleElevator() ));

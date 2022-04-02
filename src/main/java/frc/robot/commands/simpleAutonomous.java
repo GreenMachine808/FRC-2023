@@ -57,13 +57,11 @@ public class simpleAutonomous extends SequentialCommandGroup{
         timer.delay(0.5);
         
         shooter.getRunShooter().initialize();
-        shooter.getRunIntake().initialize();
         shooter.getRunShooter().execute();
 
         timer.delay(1.5);
 
-        shooter.getRunIntake().execute();
-
+        shooter.runConveyorBelt(false);
 
         //shooter.runConveyorBelt(isBackwards);
        
@@ -74,7 +72,7 @@ public class simpleAutonomous extends SequentialCommandGroup{
         
         timer.delay(0.5);
        
-        drive.driveSetDistance(-60);
+        drive.driveSetDistance(-55);
 
         timer.delay(7);
 

@@ -77,9 +77,13 @@ public class ShooterSubsystem extends SubsystemBase {
   
   // method for running conveyor belt
   public void runConveyorBelt(boolean isBackwards) { conveyor_m.set(isBackwards==true? 1 : -1); }
+
+  public void runConveyorBeltTwo(boolean isBackwards) { conveyor_m.set(isBackwards==true? 0.7 : -0.2); }
   
   // method for running intake motor
   public void runIntakeMotor(boolean isBackwards) { intake_m.set(ControlMode.PercentOutput, isBackwards==true? -1 : 1); }
+
+  public void runIntakeMotorTwo(boolean isBackwards) { intake_m.set(ControlMode.PercentOutput, isBackwards==true? -1 : 0.7); }
   
   // method for running shooter motor
   public void runShooter(double setPosition) {

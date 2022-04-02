@@ -45,7 +45,7 @@ public class runShooter extends CommandBase {
     if (RUNITYEA) {
       m_subsystem.runConveyorBelt(false);
     }
-    m_subsystem.runShooter(0.75);
+    m_subsystem.runShooter(0.775);
   }
 
   // Called once the command ends or is interrupted.

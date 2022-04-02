@@ -36,7 +36,7 @@ public final class Constants {
     // Front Left
     public static final int FRONT_LEFT_ANGLE_MOTOR = 24;
     public static final int FRONT_LEFT_DRIVE_MOTOR = 14;
-    public static final double FRONT_LEFT_OFFSET = 312;
+    public static final double FRONT_LEFT_OFFSET = 160;
     public static final int FRONT_LEFT_ENCODER = 3;
 
     // Front Right
@@ -122,7 +122,8 @@ public final class Constants {
   public static final double[] targetVelocities = {3300, 5000, 5800.0};
   public static final double slowSpeed = 0.15;
   public static final double normalSpeed = 0.35;
-  public static final double sprintSpeed = 0.6;
+  public static final double sprintSpeed = 0.8;
+  public static final double fullSpeed = 1;
 
-  public static final double normalTurn = 0.35;
+  public static final double normalTurn = 0.4;
 }

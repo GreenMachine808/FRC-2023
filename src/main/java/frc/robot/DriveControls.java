@@ -38,6 +38,8 @@ public class DriveControls {
 
   public final JoystickButton runIntakeForward = new JoystickButton(joystick1, 2);
   public final JoystickButton runIntakeReverse = new JoystickButton(joystick1, 3);
+
+  public final JoystickButton runIntakeTwo = new JoystickButton(joystick1, 5);
  
   public final JoystickButton resetDrive = new JoystickButton(joystick2, 11);
 }

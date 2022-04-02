@@ -53,7 +53,7 @@ public class commandBaseAuto extends SequentialCommandGroup{
 
         timer.delay(0.5);
         
-        drive.driveSetDistance(-60);
+        drive.driveSetDistance(-55);
         
         timer.delay(6);
         /* new ParallelDeadlineGroup( 
