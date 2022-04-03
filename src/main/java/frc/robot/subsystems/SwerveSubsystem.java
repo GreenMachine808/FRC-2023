@@ -31,7 +31,7 @@ public class SwerveSubsystem extends SubsystemBase {
   private final double kLengthComponent;
   private final double kWidthComponent;
 
-  public boolean runSlow, runSprint, turnSlow, turnSprint;
+  public boolean runSlow, runSprint, runFull, turnSlow, turnSprint;
 
   /**
    * This constructs the Swerve Subsystem with the navx and given constants 

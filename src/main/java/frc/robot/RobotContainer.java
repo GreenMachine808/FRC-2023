@@ -87,9 +87,13 @@ public class RobotContainer {
     controls.fastDriveMode.whileHeld(new StartEndCommand(
       () -> robotDrive.runSprint = true,
       () -> robotDrive.runSprint = false ));
-    controls.slowDriveMode.toggleWhenPressed(new StartEndCommand(
+    controls.slowDriveMode.whileHeld(new StartEndCommand(
       () -> robotDrive.runSlow = true, 
       () -> robotDrive.runSlow = false ));
+    /* controls.fullDriveMode.toggleWhenPressed(new StartEndCommand(
+      () -> robotDrive.runFull = true, 
+      () -> robotDrive.runFull = false ));
+    */
 
     /* controls.fastTurnMode.toggleWhenPressed(new StartEndCommand(
       () -> robotDrive.turnSprint = true, 
@@ -118,8 +122,8 @@ public class RobotContainer {
     controls.runIntakeReverse.whileHeld(new runIntakeReverse( shooter ));
     controls.runIntakeTwo.whileHeld(new runIntakeTwo( shooter ));
 
-    controls.elevatorState.whenPressed(new InstantCommand(
-      () -> hang.toggleElevator() ));
+    //controls.elevatorState.whenPressed(new InstantCommand(
+      //() -> hang.toggleElevator() ));
   }
   
   /**
@@ -152,19 +156,28 @@ public class RobotContainer {
     }
 
     // Lil easing because I don't like the clicking sound. Need to replace numbers with variables though
-    if (robotDrive.runSlow) {
-      if(speedMod > slowSpeed) {
-        speedMod -= 0.1;
-      } else { speedMod = slowSpeed; }
-    } else if (robotDrive.runSprint) {
-      if (speedMod < sprintSpeed) {
-        speedMod += 0.1;
-      } else {speedMod = sprintSpeed; }
-    } else {
-      if (Math.abs(speedMod - normalSpeed) < 0.1) { speedMod = normalSpeed; }
-      else if (speedMod < normalSpeed ) {speedMod += 0.07; }
-      else {speedMod -= 0.07; }
+    if (robotDrive.runFull) {
+      if (speedMod < fullSpeed) {
+        speedMod += 0.1; 
+      } else { speedMod = fullSpeed; }
     }
+      else {
+        if (robotDrive.runSlow) {
+          if(speedMod > slowSpeed) {
+            speedMod -= 0.1;
+          } else { speedMod = slowSpeed; }
+        } else if (robotDrive.runSprint) {
+          if (speedMod < sprintSpeed) {
+            speedMod += 0.1;
+          } else {speedMod = sprintSpeed; }  
+        
+        } else {
+          if (Math.abs(speedMod - normalSpeed) < 0.1) { speedMod = normalSpeed; }
+          else if (speedMod < normalSpeed ) {speedMod += 0.07; }
+          else {speedMod -= 0.07; }
+        }
+      }
+    
 
 		// Modify the inputed speed based on which speed mode is currently active
     return value * speedMod;

@@ -36,7 +36,7 @@ public final class Constants {
     // Front Left
     public static final int FRONT_LEFT_ANGLE_MOTOR = 24;
     public static final int FRONT_LEFT_DRIVE_MOTOR = 14;
-    public static final double FRONT_LEFT_OFFSET = 160;
+    public static final double FRONT_LEFT_OFFSET = 245;
     public static final int FRONT_LEFT_ENCODER = 3;
 
     // Front Right
