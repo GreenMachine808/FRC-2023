@@ -122,8 +122,8 @@ public class RobotContainer {
     controls.runIntakeReverse.whileHeld(new runIntakeReverse( shooter ));
     controls.runIntakeTwo.whileHeld(new runIntakeTwo( shooter ));
 
-    //controls.elevatorState.whenPressed(new InstantCommand(
-      //() -> hang.toggleElevator() ));
+    controls.elevatorState.whenPressed(new InstantCommand(
+      () -> hang.toggleElevator() ));
   }
   
   /**
